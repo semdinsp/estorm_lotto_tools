@@ -1,11 +1,13 @@
 module EstormLottoTools
   class BasicConfig < EstormLottoTools::ConfigMgr
    # attr_accessor :randgen, :myrange
-   def initialize
-     self.read_config
-   end
+   
    def initialize(dir,file)
-      self.read_config(dir,file)
+      if dir!=nil and file!=nil
+        self.read_config(dir,file)
+      else
+        self.read_config
+      end
     end
   def host
     self.parameter('host')
