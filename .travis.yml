@@ -1,0 +1,20 @@
+language: ruby
+before_install:
+  - travis_retry gem install bundler
+rvm:
+  - "2.0.0"
+gemfile: Gemfile
+script: 
+  - bundle
+  - bundle install
+  - cd test; 
+  - ruby test_estormlotto.rb
+notifications:
+  recipients:
+    - scott.sproule@estormtech.com
+  email:
+    on_success: change
+    on_failure: always
+addons:
+  code_climate:
+    repo_token: 304270078a8ec5faae57e432a3d70bfdb65a016e3d128aef4e138e092d73e9e1
