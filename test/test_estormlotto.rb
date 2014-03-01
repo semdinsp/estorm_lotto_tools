@@ -7,6 +7,9 @@ class EstormLottoToolsTest <  Minitest::Test
 
   def setup
     @f=  EstormLottoTools::ConfigMgr.new
+    dir=File.dirname(__FILE__)
+    file='test.conf'
+    @basic = EstormLottoTools::BasicConfig.new(dir,file)
   end
   
   def test_basic
@@ -48,7 +51,10 @@ class EstormLottoToolsTest <  Minitest::Test
           params['testwrite']='testread'
           @f.update_params(params)
       end
-    
+    def test_host
+      assert @basic.host=='testhost:123', "host wrong #{@basic.inspect}"
+      assert @basic.identity=='6590683565', "source wrong #{@basic.inspect}"
+    end
   
   
 
