@@ -12,7 +12,9 @@ module EstormLottoTools
   def host
     self.parameter('host')
   end
-  
+  def params
+    self.config.params
+  end
   def identity
     self.parameter('identity')
   end

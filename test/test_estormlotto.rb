@@ -54,6 +54,7 @@ class EstormLottoToolsTest <  Minitest::Test
     def test_host
       assert @basic.host=='testhost:123', "host wrong #{@basic.inspect}"
       assert @basic.identity=='6590683565', "source wrong #{@basic.inspect}"
+      assert @basic.params.include?('host'), "params wrong #{@basic.params}"
     end
   
   
