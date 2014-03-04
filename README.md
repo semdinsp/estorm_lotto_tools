@@ -5,7 +5,7 @@
 estorm_lotto_tools
 ============
 
-Tools for security and oter proprietary stuff
+Tools for security and other proprietary stuff
 
 
 Setup for Gemfury
