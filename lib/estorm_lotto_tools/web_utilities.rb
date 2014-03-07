@@ -5,8 +5,9 @@ module EstormLottoTools
       flag="h"
       flag="r" if restart
       cmd="/sbin/shutdown -#{flag} now"
-      puts "command is: #{cmd}"
-      system(cmd) if !(/darwin/ =~ RUBY_PLATFORM) != nil
+      osflag=(/darwin/ =~ RUBY_PLATFORM) != nil
+      puts "command is: #{cmd} osflag #{osflag}"
+      system(cmd) if !osflag
     end
   end # class
 end #mdoule
