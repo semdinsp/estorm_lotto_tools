@@ -56,6 +56,19 @@ class EstormLottoToolsTest <  Minitest::Test
       assert @basic.identity=='6590683565', "source wrong #{@basic.inspect}"
       assert @basic.params.include?('host'), "params wrong #{@basic.params}"
     end
+    
+    def test_shutdown
+      params={ 'restart' => 'true'}
+      webu=EstormLottoTools::WebUtilities.new
+      cmd=webu.shutdown(params['restart']=='true')
+      assert cmd.include?('-r'), "cmd wrong #{cmd}"
+      params={ 'restart' => 'true'}
+      webu=EstormLottoTools::WebUtilities.new
+      cmd=webu.shutdown(params['restart']=='false')
+      assert cmd.include?('-h'), "cmd wrong #{cmd}"
+      cmd=EstormLottoTools::WebUtilities.web_app_shutdown(params)
+      assert cmd.include?('-r'), "cmd wrong #{cmd}"
+    end
   
   
 
