@@ -41,7 +41,7 @@ module EstormLottoTools
     reset_config_fs if !osflag
   end
   def update_printer(newprinter)
-    self.update_printer('printer',newprinter)
+    self.update_kv('printer',newprinter)
   end
 
    end    # Class
