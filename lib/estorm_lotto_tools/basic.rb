@@ -18,8 +18,7 @@ module EstormLottoTools
   end
   def identity
     self.parameter('identity')
-  end
-  def 
+  end 
   def printer
     self.parameter('printer')
   end
