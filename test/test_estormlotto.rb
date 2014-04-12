@@ -51,6 +51,19 @@ class EstormLottoToolsTest <  Minitest::Test
           params['testwrite']='testread'
           @f.update_params(params)
       end
+      
+      def test_update2
+            dir=File.dirname(__FILE__)
+            file='test.conf'
+            assert cf=@basic.read_config(dir,file),"could not find #{dir}, #{file}"
+            assert @basic.parameter?('number'), "should have number"
+            @basic.update_kv('test2','3456')
+            assert cf=@basic.read_config(dir,file),"could not find #{dir}, #{file}"
+            assert @basic.parameter('test2')=='3456', "should have write"
+            params=@basic.config.params
+            params['testwrite']='testread'
+            @basic.update_params(params)
+        end
     def test_host
       assert @basic.host=='testhost:123', "host wrong #{@basic.inspect}"
       assert @basic.identity=='6590683565', "source wrong #{@basic.inspect}"
