@@ -58,17 +58,21 @@ module EstormLottoTools
       }
   end
   
+  
   def update_printer(newprinter)
     self.update_kv('printer',newprinter)
   end
   def module_mgmt(key,value)
      self.update_group_kv('modules',key,value)
   end
-  def enable_modules(key)
+  def enable_module(key)
     self.module_mgmt(key,"visible")
   end
-  def disable_modules(key)
+  def disable_module(key)
     self.module_mgmt(key,"hidden")
+  end
+  def modules
+    self.params['modules']
   end
 
    end    # Class

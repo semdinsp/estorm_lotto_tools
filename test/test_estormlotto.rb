@@ -67,6 +67,13 @@ class EstormLottoToolsTest <  Minitest::Test
             params['testwrite']='testread'
             @basic.update_params(params)
         end
+        def test_modules
+              dir=File.dirname(__FILE__)
+              file='test.conf'
+              assert cf=@basic.read_config(dir,file),"could not find #{dir}, #{file}"
+               @basic.enable_module('fred')
+               assert @basic.modules['fred']=='visible', 'module enabled'
+            end
     def test_host
       assert @basic.host=='testhost:123', "host wrong #{@basic.inspect}"
       assert @basic.identity=='6590683565', "source wrong #{@basic.inspect}"
