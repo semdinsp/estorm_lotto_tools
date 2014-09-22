@@ -72,7 +72,8 @@ module EstormLottoTools
     self.module_mgmt(key,"hidden")
   end
   def modules
-    self.params['modules']
+    self.config.add('modules',{}) if self.config.params['modules']==nil
+    self.config.params['modules']
   end
 
    end    # Class

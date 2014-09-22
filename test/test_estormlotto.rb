@@ -74,6 +74,12 @@ class EstormLottoToolsTest <  Minitest::Test
                @basic.enable_module('fred')
                assert @basic.modules['fred']=='visible', 'module enabled'
             end
+            def test_modules2
+                  dir=File.dirname(__FILE__)
+                  file='test.conf'
+                  assert cf=@basic.read_config(dir,file),"could not find #{dir}, #{file}"
+                   assert @basic.modules!=nil, 'modules enabled'
+                end
     def test_host
       assert @basic.host=='testhost:123', "host wrong #{@basic.inspect}"
       assert @basic.identity=='6590683565', "source wrong #{@basic.inspect}"
