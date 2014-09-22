@@ -19,6 +19,9 @@ module EstormLottoTools
   def identity
     self.parameter('identity')
   end 
+  def module(val)
+    self.group_parameter('modules',val)
+  end 
   def printer
     self.parameter('printer')
   end
@@ -32,16 +35,40 @@ module EstormLottoTools
     system('sudo umount /boot')
     system('sudo mount -a')  #based on fstab..
   end
-  def update_kv(key,value)
+  def manage_filesystem
     osflag=(/darwin/ =~ RUBY_PLATFORM) != nil
     make_config_fs_readable if !osflag
-    params=self.config.params
-    params[key]=value
-    self.update_params(params)
+    yield
     reset_config_fs if !osflag
   end
+  def update_kv(key,value)
+    manage_filesystem {
+        params=self.config.params
+        params[key]=value
+        self.update_params(params)
+      }
+  end
+  def update_group_kv(group,key,value)
+    manage_filesystem {
+        params=self.config.params
+        self.config.add(group,{}) if params[group]==nil
+        params=self.config.params
+        params[group][key]=value 
+        self.update_params(params)
+      }
+  end
+  
   def update_printer(newprinter)
     self.update_kv('printer',newprinter)
+  end
+  def module_mgmt(key,value)
+     self.update_group_kv('modules',key,value)
+  end
+  def enable_modules(key)
+    self.module_mgmt(key,"visible")
+  end
+  def disable_modules(key)
+    self.module_mgmt(key,"hidden")
   end
 
    end    # Class

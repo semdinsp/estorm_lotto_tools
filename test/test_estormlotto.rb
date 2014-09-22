@@ -58,8 +58,11 @@ class EstormLottoToolsTest <  Minitest::Test
             assert cf=@basic.read_config(dir,file),"could not find #{dir}, #{file}"
             assert @basic.parameter?('number'), "should have number"
             @basic.update_kv('test2','3456')
+            @basic.update_group_kv('testgr','test','456')
             assert cf=@basic.read_config(dir,file),"could not find #{dir}, #{file}"
             assert @basic.parameter('test2')=='3456', "should have write"
+            assert @basic.group_parameter('testgr','test')=='456', "should have group write #{cf.inspect} #{@basic.inspect}"
+            
             params=@basic.config.params
             params['testwrite']='testread'
             @basic.update_params(params)

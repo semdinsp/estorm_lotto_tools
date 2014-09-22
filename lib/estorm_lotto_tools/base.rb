@@ -18,6 +18,15 @@ module EstormLottoTools
     key=@config[val]
     key
   end
+  def group_parameter(grp,val)
+    key=nil
+    if @config[grp]==nil
+      @config.add(grp,{})
+    else
+      key=@config[grp][val] 
+    end
+    key
+  end
     
   def parameter?(val)
     @config.get_params.include?(val)
