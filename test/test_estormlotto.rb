@@ -55,6 +55,7 @@ class EstormLottoToolsTest <  Minitest::Test
             instance=EstormLottoTools::Sound.new
             instance.playsound('test')
             assert instance!=nil,"sound stuff"
+            assert !EstormLottoTools::Sound.playsound('test'),"sound stuff"
       end
       def test_update2
             dir=File.dirname(__FILE__)

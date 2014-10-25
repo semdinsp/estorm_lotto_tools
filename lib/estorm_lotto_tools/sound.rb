@@ -5,6 +5,7 @@ module EstormLottoTools
       sndfile=rootdir+sound
       puts "playing sound: #{sndfile}"
       system("aplay #{sndfile}") if File.exists?(sndfile)
+      File.exists?(sndfile)   #return if file exists
     end
     def self.playsound(snd)
       instance=EstormLottoTools::Sound.new
