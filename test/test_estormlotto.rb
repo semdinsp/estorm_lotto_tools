@@ -51,7 +51,11 @@ class EstormLottoToolsTest <  Minitest::Test
           params['testwrite']='testread'
           @f.update_params(params)
       end
-      
+      def test_sound
+            instance=EstormLottoTools::Sound.new
+            instance.playsound('test')
+            assert instance!=nil,"sound stuff"
+      end
       def test_update2
             dir=File.dirname(__FILE__)
             file='test.conf'
