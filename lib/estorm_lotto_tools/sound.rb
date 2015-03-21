@@ -4,7 +4,7 @@ module EstormLottoTools
       rootdir="/home/pi/sound/"
       sndfile=rootdir+sound
       puts "playing sound: #{sndfile}"
-      system("aplay #{sndfile}") if File.exists?(sndfile)
+      Thread.new { system("aplay #{sndfile}") } if File.exists?(sndfile)
       File.exists?(sndfile)   #return if file exists
     end
     def self.playsound(snd)
