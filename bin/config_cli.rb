@@ -27,9 +27,6 @@ class ConfigCli < Thor
       params[options[:key]]=options[:value]
       wb.update_params(params)
     end
-    
-    
-    
 end
 
 ConfigCli.start(ARGV)

@@ -25,6 +25,7 @@ module EstormLottoTools
   def printer
     self.parameter('printer')
   end
+  # sudo mount /dev/mmcblk0p1 /boot -o defaults,noatime -t vfat
   def make_config_fs_readable
     puts "config read"
     system('sudo umount /boot')

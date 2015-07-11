@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "estorm_lotto_tools"
-  s.version     = "0.3.0"
+  s.version     = "0.3.1"
   s.author      = "Scott Sproule"
   s.email       = "scott.sproule@ficonab.com"
   s.homepage    = "http://github.com/semdinsp/estorm_lotto_tools"
@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.4"
   s.add_runtime_dependency 'thor'
   s.add_runtime_dependency 'parseconfig'
+  s.add_runtime_dependency 'hurley'
   signing_key = File.expand_path('~/.ssh/gem-private_key.pem')
 
     if File.exist?(signing_key)
