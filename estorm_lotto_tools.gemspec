@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
   s.rubyforge_project = s.name
   s.required_rubygems_version = ">= 1.3.4"
-  s.add_runtime_dependency 'thor'
-  s.add_runtime_dependency 'parseconfig'
-  s.add_runtime_dependency 'hurley'
+  s.add_runtime_dependency 'thor', "~> 0.19"
+  s.add_runtime_dependency 'parseconfig', "~> 1.0"
+  s.add_runtime_dependency 'hurley', "~> 0.1"
   signing_key = File.expand_path('~/.ssh/gem-private_key.pem')
 
     if File.exist?(signing_key)
