@@ -11,14 +11,15 @@ module EstormLottoTools
       #structured_data = {}
       # data.each {  |a|  strctured_data << {date: }}
       self.send_udp(topic,data.to_json)
-      puts data
+     # puts data
     end
     
     def send_udp(topic,data)
       u1 = UDPSocket.new
       addr="localhost"
-      u1.send topic, 0, addr, 4444
-      u1.send data, 0, addr, 4444
+      port= 4444
+      u1.send "#{topic}#{data}", 0, addr, 4444
+      puts "sending #{addr} #{port} data: #{topic}#{data} "
     end
     
   end

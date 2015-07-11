@@ -25,6 +25,13 @@ class ToolsCli < Thor
       puts res
     end
     
+    desc "mountboot", "mount boot disk"
+   
+    def mountboot
+      wb=EstormLottoTools::Basic.new
+      wb.make_config_fs_readable
+    end
+    
 end
 
 ToolsCli.start(ARGV)
