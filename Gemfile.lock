@@ -31,3 +31,5 @@ DEPENDENCIES
   estorm_lotto_tools!
   hurley
   minitest
+  parseconfig
+  thor
