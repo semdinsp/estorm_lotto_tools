@@ -18,15 +18,28 @@ class ToolsCli < Thor
     end
     
     desc "signage", "send signage data"
-   
     def signage
       wb=EstormLottoTools::DigitalSignage.new
-      res=wb.send_4d_results
-      puts res
+      data=wb.send_4d_results
+      filemgr=EstormLottoTools::Files.new
+      filemgr.write_file('/home/pi/info-beamer-pi/estorm/nodemgr/drawdata','4d.json',data.to_json) if !data.nil?
+      puts data
+    end
+    desc "donations", "count of donations"
+    def donations
+        wb=EstormLottoTools::WebJsonData.new
+        res=wb.get_donations_count('estorm-sms','stxpgBdjcrWt9iAZUAyZ')
+        puts res
+    end
+    
+    desc "donator_list", "list of donators"
+    def donator_list
+        wb=EstormLottoTools::WebJsonData.new
+        res=wb.get_donators_list('estorm-sms','stxpgBdjcrWt9iAZUAyZ')
+        puts res
     end
     
     desc "mountboot", "mount boot disk"
-   
     def mountboot
       wb=EstormLottoTools::Basic.new
       wb.make_config_fs_readable
