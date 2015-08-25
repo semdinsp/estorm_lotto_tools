@@ -38,6 +38,15 @@ module EstormLottoTools
     def get_donators_list(host,token,email="api@estormtech.com")
       manage_data(host,token,email,"donator_list?")
     end
+    def obfuscate_keys(hash)
+      temp={}
+      hash.each { |k,v|  
+            nk=k.dup
+            nk[3..nk.size-4]="xxxxxx" 
+            temp[nk]=v
+         }
+      temp
+    end
   end
    
 end

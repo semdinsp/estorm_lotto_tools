@@ -39,6 +39,15 @@ class ToolsCli < Thor
         puts res
     end
     
+    desc "obfuscate", "obfuscate list of donators"
+    def obfuscate
+        wb=EstormLottoTools::WebJsonData.new
+        res=wb.get_donators_list('estorm-sms','stxpgBdjcrWt9iAZUAyZ')
+        res=wb.obfuscate_keys(res)
+        puts res
+    end
+    
+    
     desc "mountboot", "mount boot disk"
     def mountboot
       wb=EstormLottoTools::Basic.new
