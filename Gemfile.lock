@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    estorm_lotto_tools (0.3.7)
+    estorm_lotto_tools (0.3.8)
       hurley (~> 0.1)
       parseconfig (~> 1.0)
       thor (~> 0.19)

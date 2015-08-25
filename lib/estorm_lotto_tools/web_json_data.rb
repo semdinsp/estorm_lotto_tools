@@ -42,7 +42,7 @@ module EstormLottoTools
       temp={}
       hash.each { |k,v|  
             nk=k.dup
-            nk[3..nk.size-4]="xxxxxx" 
+            nk[4..nk.size-5]="xxxxxx" 
             temp[nk]=v
          }
       temp
