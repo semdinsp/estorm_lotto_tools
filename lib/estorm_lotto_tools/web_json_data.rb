@@ -5,15 +5,20 @@ module EstormLottoTools
   class WebJsonData
     def client_get(url,action,token,email) 
       client = Hurley::Client.new  url
+      res="Unknown "
+      begin
        res=client.get(action)  do |req|
          req.query["auth_email"] = email
          req.query["auth_token"] = token
        end  #FIX   
+     rescue Exception => e
+       res=res+ e.message
+     end
        res
     end
     def build_response(res)
       json_resp = {:success => false}.to_json
-      json_resp =res.body.to_s if res.success?
+      json_resp =res.body.to_s if !res.is_a?(String) and res.success?
       msg=JSON.parse(json_resp) 
       msg
     end
