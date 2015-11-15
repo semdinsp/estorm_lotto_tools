@@ -29,6 +29,12 @@ class EstormLottoToolsTest <  Minitest::Test
        assert @f.parameter?('key'), "should have key"
        assert @f.parameter('key')=="value", "response should be value #{@f.parameter('key')}"     
    end
+   def test_countdown_file
+      fmgr= EstormLottoTools::Files.new
+      res=fmgr.write_countdown_file("fred","Fred",@basic.identity,false)
+      assert res.include?('TEDS')
+   end
+   
    def test_number
         dir=File.dirname(__FILE__)
         file='test.conf'

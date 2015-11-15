@@ -17,6 +17,21 @@ class ToolsCli < Thor
       puts res
     end
     
+    desc "countdown", "create countdown file"
+    option :debug
+    def countdown
+      filemgr=EstormLottoTools::Files.new
+      flag=true
+      flag=false if options[:debug]=='true'
+      id="fake id"
+      if flag
+         @basic = EstormLottoTools::BasicConfig.new(nil,nil)  
+         id=@basic.identity
+       end
+      filemgr.write_countdown_file('/home/pi/estorm_lotto_web/content/static','countdown.html',id,flag)
+      #filemgr.write_file('/home/pi/info-beamer-pi/estorm/nodemgr/drawdata','4d.json',data.to_json) if !data.nil?
+    end
+    
     desc "signage", "send signage data"
     def signage
       wb=EstormLottoTools::DigitalSignage.new
@@ -50,7 +65,7 @@ class ToolsCli < Thor
     
     desc "mountboot", "mount boot disk"
     def mountboot
-      wb=EstormLottoTools::Basic.new
+      wb=EstormLottoTools::BasicConfig.new
       wb.make_config_fs_readable
     end
     

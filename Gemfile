@@ -7,4 +7,5 @@ gem "thor"
 #gem "multi_json"
 gem "minitest"
 gem "hurley"
+gem 'hwid'
 #gem "minitest-rails"
