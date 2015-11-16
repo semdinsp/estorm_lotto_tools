@@ -3,6 +3,7 @@ PATH
   specs:
     estorm_lotto_tools (0.3.9)
       hurley (~> 0.1)
+      hwid (~> 0.2)
       parseconfig (~> 1.0)
       thor (~> 0.19)
 
@@ -13,7 +14,7 @@ GEM
       simplecov (>= 0.7.1, < 1.0.0)
     docile (1.1.5)
     hurley (0.2)
-    hwid (0.1.9)
+    hwid (0.2.0)
     json (1.8.3)
     minitest (5.8.2)
     parseconfig (1.0.6)

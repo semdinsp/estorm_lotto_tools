@@ -20,13 +20,12 @@ module EstormLottoTools
     def write_countdown_file(dir,name,identity,flag=true)  #flag is used to for testing
       @platform = Hwid.platform
       @ruby_platform = RUBY_PLATFORM
-      @counter=65
-      @counter =30 if @platform.include?("mac")
-      @counter =30 if @platform.include?("raspberry 2")
+      @counter=80
+      @counter =25 if @platform.include?("raspberry 2") or @platform.include?("mac")
       @dist=identity
       #filemgr.write_file('/home/pi/info-beamer-pi/estorm/nodemgr/drawdata'
       cdf=self.countdown_file_contents
-      puts "writing  countdown file:  #{self.get_filename(dir,name)} if #{flag}"
+      puts "writing  countdown file:  #{self.get_filename(dir,name)} if #{flag} counter: #{@counter} platform: #{@platform}"
       puts "FILE CONTENTS \n #{cdf}"
       self.write_file(dir,name,cdf) if flag
       cdf
