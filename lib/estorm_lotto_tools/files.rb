@@ -17,6 +17,13 @@ module EstormLottoTools
         self.write_from_web(url,dir,name) if !File.exists?(self.get_filename(dir,name))
     end
     
+    # drop actions here needed at boot
+    def boot_actions
+      puts "teds: starting boot services #{Time.now} Ruby Version: #{RUBY_VERSION} "
+      Gem.loaded_specs.each { |name, spec|
+        puts "Gem installed: #{name}:#{spec.version}" if name.start_with?('es')  }
+    end
+    
     def write_countdown_file(dir,name,identity,flag=true)  #flag is used to for testing
       @platform = Hwid.platform
       @ruby_platform = RUBY_PLATFORM

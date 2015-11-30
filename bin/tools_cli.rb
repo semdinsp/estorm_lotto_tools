@@ -65,8 +65,14 @@ class ToolsCli < Thor
     
     desc "mountboot", "mount boot disk"
     def mountboot
-      wb=EstormLottoTools::BasicConfig.new
+      wb=EstormLottoTools::BasicConfig.new(nil,nil)
       wb.make_config_fs_readable
+    end
+    
+    desc "boot_actions", "actions to take at boot"
+    def boot_actions
+      wb=EstormLottoTools::Files.new
+      wb.boot_actions
     end
     
 end
