@@ -58,7 +58,18 @@ module EstormLottoTools
         self.update_params(params)
       }
   end
-  
+  def bt_enable(flag)
+    self.update_kv('bluetooth_enabled',flag)
+  end
+  def bt_enabled?
+    self.parameter('bluetooth_enabled')
+  end
+  def set_bluetooth_printer(btp)
+    self.update_kv('bluetooth',btp)
+  end
+  def get_bluetooth_printer
+     self.parameter('bluetooth')
+  end
   
   def update_printer(newprinter)
     self.update_kv('printer',newprinter)
