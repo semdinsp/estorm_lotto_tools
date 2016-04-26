@@ -22,6 +22,37 @@ module EstormLottoTools
       puts "teds: starting boot services #{Time.now} Ruby Version: #{RUBY_VERSION} "
       Gem.loaded_specs.each { |name, spec|
         puts "Gem installed: #{name}:#{spec.version}" if name.start_with?('es')  }
+      @basic = EstormLottoTools::BasicConfig.new(File.dirname(__FILE__),'test.conf') if settings.environment==:test
+      self.enable_bt_printer(@basic.get_bluetooth_printer)  if @basic.bt_enabled?
+    end
+    def write_bt_expect(device)
+      puts "device: #{device }writing: #{self.bluetooth_expect_script(device)}"
+      self.write_file("/tmp","bt_expect.expect",self.bluetooth_expect_script(device))
+    end
+    def enable_bt_printer(device)
+      self.write_bt_expect(device)
+      system("sudo chmod a+x /tmp/bt_expect.expect")
+      system("sudo /tmp/bt_expect.expect")
+      system("sudo rfcomm bind rfcomm0 #{device}")
+    end
+    def bluetooth_expect_script(device)
+    bluescript = <<EOF_BLUE_CMDS
+    #!/usr/bin/expect
+exp_internal 1
+spawn "bluetoothctl"
+expect "*#"
+send "agent on\r"
+expect "*registered"
+send "default-agent\r"
+expect "*successful"
+send "pair #{device}\r"
+expect "*PIN code:"
+send "0000\r"
+expect "*successful"
+close
+ 
+EOF_BLUE_CMDS
+       bluescript 
     end
     
     def write_countdown_file(dir,name,identity,flag=true)  #flag is used to for testing
