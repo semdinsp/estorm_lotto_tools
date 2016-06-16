@@ -4,6 +4,20 @@ module EstormLottoTools
     def get_filename(dir,name)
       "#{dir}/#{name}"
     end
+    def change_hostname(newhost)
+        cmd="hostname"
+        old=`#{cmd}`.chomp
+        ["/etc/hostname","/etc/hosts"].each {  |filename| 
+             cmd="sudo sed -i.bak s/#{old}/#{newhost}/g #{filename}"
+             puts "changing hostname to: #{newhost} from: #{old} cmd: #{cmd} updated #{filename}"
+             system(cmd)
+         }
+        cmd="sudo /etc/init.d/hostname.sh"
+        system(cmd)
+        puts "ran hostname.sh  cmd: #{cmd}"
+        puts "hostname changed to #{newhost} from: #{old} please reboot"
+
+    end
     def write_file(dir,name,contents)
       puts "writing file:  #{self.get_filename(dir,name)}"
       File.open(self.get_filename(dir,name), 'w') { |file| file.write(contents) }
@@ -22,7 +36,8 @@ module EstormLottoTools
       puts "teds: starting boot services #{Time.now} Ruby Version: #{RUBY_VERSION} "
       Gem.loaded_specs.each { |name, spec|
         puts "Gem installed: #{name}:#{spec.version}" if name.start_with?('es')  }
-      @basic = EstormLottoTools::BasicConfig.new(File.dirname(__FILE__),'test.conf') if settings.environment==:test
+      puts "starting bluetooth configuration"
+      @basic = EstormLottoTools::BasicConfig.new(nil,nil)
       self.enable_bt_printer(@basic.get_bluetooth_printer)  if @basic.bt_enabled?
     end
     def write_bt_expect(device)
@@ -33,11 +48,12 @@ module EstormLottoTools
       self.write_bt_expect(device)
       system("sudo chmod a+x /tmp/bt_expect.expect")
       system("sudo /tmp/bt_expect.expect")
+      system("sudo rfcomm release 0")
       system("sudo rfcomm bind rfcomm0 #{device}")
     end
     def bluetooth_expect_script(device)
     bluescript = <<EOF_BLUE_CMDS
-    #!/usr/bin/expect
+#!/usr/bin/expect
 exp_internal 1
 spawn "bluetoothctl"
 expect "*#"
@@ -45,6 +61,8 @@ send "agent on\r"
 expect "*registered"
 send "default-agent\r"
 expect "*successful"
+send "trust #{device}\r"
+expect "*succeeded"
 send "pair #{device}\r"
 expect "*PIN code:"
 send "0000\r"

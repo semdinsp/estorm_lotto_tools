@@ -69,6 +69,20 @@ class ToolsCli < Thor
       wb.make_config_fs_readable
     end
     
+    desc "changehostname", "change hostname to hostname"
+    option :hostname, :required => true
+    def changehostname
+      wb=EstormLottoTools::Files.new
+      cmd="hostname"
+      old=`#{cmd}`
+      flag= old.chomp==options[:hostname]
+      if flag
+        puts "warning: new hostname and old hostname same: #{old.chomp} #{options[:hostname]}"
+      else
+      wb.change_hostname(options[:hostname])  
+      end
+    end
+    
     desc "boot_actions", "actions to take at boot"
     def boot_actions
       wb=EstormLottoTools::Files.new
