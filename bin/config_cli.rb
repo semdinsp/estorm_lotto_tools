@@ -27,6 +27,18 @@ class ConfigCli < Thor
       params[options[:key]]=options[:value]
       wb.update_params(params)
     end
+    
+    desc "identity", "get identity"
+    def identity
+      wb=EstormLottoTools::ConfigMgr.new
+      puts wb.read_config()['identity']
+    end
+    
+    desc "printer", "get printer"
+    def printer
+      wb=EstormLottoTools::ConfigMgr.new
+      puts wb.read_config()['printer']
+    end
 end
 
 ConfigCli.start(ARGV)
