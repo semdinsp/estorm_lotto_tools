@@ -14,5 +14,10 @@ module EstormLottoTools
       system(cmd) if !osflag
       cmd
     end
+    def self.parse_request_for_keypad_support(useragent)
+      flag=false
+      flag= useragent.include?("iPhone OS") or  useragent.include?("Android")
+      flag
+    end
   end # class
 end #mdoule

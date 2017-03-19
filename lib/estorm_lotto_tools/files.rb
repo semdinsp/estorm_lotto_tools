@@ -18,6 +18,18 @@ module EstormLottoTools
         puts "hostname changed to #{newhost} from: #{old} please reboot"
 
     end
+    def  self.check_prior_change_hostname(newhost)
+      wb=EstormLottoTools::Files.new
+      cmd="hostname"
+      old=`#{cmd}`
+      flag= old.chomp==newhost
+      if flag
+        puts "warning: new hostname and old hostname same: #{old.chomp} #{newhost}"
+      else
+         wb.change_hostname(newhost)  
+      end
+      
+    end
     def write_file(dir,name,contents)
       puts "writing file:  #{self.get_filename(dir,name)}"
       File.open(self.get_filename(dir,name), 'w') { |file| file.write(contents) }
@@ -39,6 +51,8 @@ module EstormLottoTools
       puts "starting bluetooth configuration"
       @basic = EstormLottoTools::BasicConfig.new(nil,nil)
       self.enable_bt_printer(@basic.get_bluetooth_printer)  if @basic.bt_enabled?
+      puts "update hostname if needed to #{@basic.identity} if starts with 'dist'"
+      EstormLottoTools::Files.check_prior_change_hostname(@basic.identity) if @basic.identity.start_with?('dist')
     end
     def write_bt_expect(device)
       puts "device: #{device }writing: #{self.bluetooth_expect_script(device)}"
