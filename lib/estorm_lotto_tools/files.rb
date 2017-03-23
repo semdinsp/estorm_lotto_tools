@@ -4,6 +4,9 @@ module EstormLottoTools
     def get_filename(dir,name)
       "#{dir}/#{name}"
     end
+    def self.get_filename(dir,name)
+      "#{dir}/#{name}"
+    end
     def change_hostname(newhost)
         cmd="hostname"
         old=`#{cmd}`.chomp
@@ -39,6 +42,18 @@ module EstormLottoTools
         res = client.get()  # may need chunks in future
         self.write_file(dir,name,res.body) if res.success?
     end
+    def self.fix_chromium_locks
+      dir="/home/pi/.config/chromium"
+      puts "fixing chromum lock files"
+      self.delete_if_exists(dir,"SingletonLock")
+      self.delete_if_exists(dir,"SingletonSocket")
+      self.delete_if_exists(dir,"SingletonCookie")
+    end
+    
+    def self.delete_if_exists(dir,name)
+        File.delete(self.get_filename(dir,name)) if File.exists?(self.get_filename(dir,name))
+    end
+    
     def write_from_web_if_new(url,dir,name)
         self.write_from_web(url,dir,name) if !File.exists?(self.get_filename(dir,name))
     end
@@ -46,6 +61,7 @@ module EstormLottoTools
     # drop actions here needed at boot
     def boot_actions
       puts "teds: starting boot services #{Time.now} Ruby Version: #{RUBY_VERSION} "
+      EstormLottoTools::Files.fix_chromium_locks
       Gem.loaded_specs.each { |name, spec|
         puts "Gem installed: #{name}:#{spec.version}" if name.start_with?('es')  }
       puts "starting bluetooth configuration"
@@ -53,6 +69,7 @@ module EstormLottoTools
       self.enable_bt_printer(@basic.get_bluetooth_printer)  if @basic.bt_enabled?
       puts "update hostname if needed to #{@basic.identity} if starts with 'dist'"
       EstormLottoTools::Files.check_prior_change_hostname(@basic.identity) if @basic.identity.start_with?('dist')
+    
     end
     def write_bt_expect(device)
       puts "device: #{device }writing: #{self.bluetooth_expect_script(device)}"
