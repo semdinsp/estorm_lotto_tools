@@ -4,9 +4,11 @@ module EstormLottoTools
     def get_filename(dir,name)
       "#{dir}/#{name}"
     end
+    
     def self.get_filename(dir,name)
       "#{dir}/#{name}"
     end
+    
     def change_hostname(newhost)
         cmd="hostname"
         old=`#{cmd}`.chomp
