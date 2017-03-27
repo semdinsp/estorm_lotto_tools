@@ -46,14 +46,22 @@ module EstormLottoTools
     end
     def self.fix_chromium_locks
       dir="/home/pi/.config/chromium"
-      puts "fixing chromum lock files"
-      self.delete_if_exists(dir,"SingletonLock")
-      self.delete_if_exists(dir,"SingletonSocket")
-      self.delete_if_exists(dir,"SingletonCookie")
+      puts "fixing chromium lock files"
+      alist=["SingletonLock","SingletonSocket","SingletonCookie"]
+      alist.each {  |li|
+        EstormLottoTools::Files.delete_if_exists(dir,li)
+        EstormLottoTools::Files.delete_symlnk_if_exists(dir,li) 
+      }
+     
     end
     
     def self.delete_if_exists(dir,name)
+        puts "----> deleting if exists: #{self.get_filename(dir,name)}"
         File.delete(self.get_filename(dir,name)) if File.exists?(self.get_filename(dir,name))
+    end
+    def self.delete_symlnk_if_exists(dir,name)
+        puts "----> deleting symlink if exists: #{self.get_filename(dir,name)}"
+        File.unlink(self.get_filename(dir,name)) if File.symlink?(self.get_filename(dir,name))
     end
     
     def write_from_web_if_new(url,dir,name)
