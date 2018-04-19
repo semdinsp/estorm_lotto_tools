@@ -78,7 +78,8 @@ class ToolsCli < Thor
     desc "forcehostname", "force hostname"
     option :hostname, :required => true
     def forcehostname
-      EstormLottoTools::Files.force_set_hostname(options[:hostname])       
+      wb=EstormLottoTools::Files.new
+      wb.force_set_hostname(options[:hostname])       
     end
     
     desc "boot_actions", "actions to take at boot"

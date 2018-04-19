@@ -25,8 +25,10 @@ module EstormLottoTools
     
     def force_set_hostname(newhost)
       cmd = "echo #{newhost} > /etc/hostname"
+      puts "running cmd '#{cmd}'"
       system(cmd)
       self.write_file("/etc","hosts",self.default_hosts_file(newhost))
+      puts "updated hosts file with: [#{self.default_hosts_file(newhost)}]"
     end
     
     def  self.check_prior_change_hostname(newhost)
