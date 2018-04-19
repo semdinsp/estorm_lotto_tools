@@ -21,8 +21,14 @@ module EstormLottoTools
         system(cmd)
         puts "ran hostname.sh  cmd: #{cmd}"
         puts "hostname changed to #{newhost} from: #{old} please reboot"
-
     end
+    
+    def force_set_hostname(newhost)
+      cmd = "echo #{newhost} > /etc/hostname"
+      system(cmd)
+      self.write_file("/etc","hosts",self.default_hosts_file(newhost))
+    end
+    
     def  self.check_prior_change_hostname(newhost)
       wb=EstormLottoTools::Files.new
       cmd="hostname"
@@ -113,6 +119,22 @@ close
 EOF_BLUE_CMDS
        bluescript 
     end
+
+    def default_hosts_file(newhost)
+      hostsfile = <<EOF_HOSTSFILE
+127.0.0.1	localhost
+::1		localhost ip6-localhost ip6-loopback
+fe00::0		ip6-localnet
+ff00::0		ip6-mcastprefix
+ff02::1		ip6-allnodes
+ff02::2		ip6-allrouters
+
+127.0.1.1	#{newhost}
+    
+EOF_HOSTSFILE
+      hostsfile
+      end
+
     
     def write_countdown_file(dir,name,identity,flag=true)  #flag is used to for testing
       @platform = Hwid.platform
