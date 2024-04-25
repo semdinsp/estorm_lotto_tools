@@ -13,6 +13,12 @@ module EstormLottoTools
     @config = ParseConfig.new("#{src}/#{file}")
     @config
   end
+
+  def read_confignew(src='./',file='.estorm_lotto.conf')
+    @config = ParseConfig.new("#{src}/#{file}")
+    puts "tools config file: #{src}/#{file}"
+    @config
+  end
   
   def parameter(val)
     key=@config[val]

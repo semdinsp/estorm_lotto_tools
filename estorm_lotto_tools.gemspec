@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "estorm_lotto_tools"
-  s.version     = "0.5.2"
+  s.version     = "0.5.3"
   s.author      = "Scott Sproule"
   s.email       = "scott.sproule@ficonab.com"
   s.homepage    = "http://github.com/semdinsp/estorm_lotto_tools"
@@ -9,9 +9,8 @@ Gem::Specification.new do |s|
   # = ['config_cli.rb']    #should be "name.rb"
   s.files        = Dir["{lib,test}/**/*"] +Dir["bin/*.rb"] + Dir["[A-Z]*"] # + ["init.rb"]
   s.license = 'MIT'
-  s.rubyforge_project = s.name
   s.required_rubygems_version = ">= 1.3.4"
-  s.add_runtime_dependency 'thor', "~> 0.19"
+  s.add_runtime_dependency 'thor', "~> 1.0"
   s.add_runtime_dependency 'parseconfig', "~> 1.0"
   s.add_runtime_dependency 'hurley', "~> 0.1"
   s.add_runtime_dependency 'hwid', "~> 0.2"
